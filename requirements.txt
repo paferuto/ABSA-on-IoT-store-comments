@@ -1,7 +1,4 @@
-interact-with-gapminder-data-app
+ABSA-on-IoT-store-comments
 │   README.md
 │   requirements.txt    
 │   app.py    
-│
-└───Data
-    │   gapminder_tidy.csv
