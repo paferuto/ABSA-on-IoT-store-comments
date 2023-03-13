@@ -61,7 +61,7 @@ def classify_sentiment(sentence, aspect_model, polarity_model, tfidf_vectorizer)
     return aspect, polarity
 
 # Create Streamlit app
-st.title("Aspect sentiment analysis on IoT store comments")
+st.title("Aspect based sentiment analysis on IoT store comments")
 st.write("Enter a text describing your opinion toward a retail store where IoT devices are deployed to enhance customer experience. Our model is built to analyse English comments so the input should be English too!")
 
 text = st.text_area("Text", height=200)
