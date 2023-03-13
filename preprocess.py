@@ -52,7 +52,7 @@ def preprocess(text):
                      "shan't've": "shall not have","she'd": "she would","she'd've": "she would have",
                      "she'll": "she will", "she'll've": "she will have","should've": "should have",
                      "shouldn't": "should not", "shouldn't've": "should not have","so've": "so have",
-                     "that'd": "that would","that'd've": "that would have", "there'd": "there would",
+                     "that'd": "that would","that'd've": "that would have", "there'd": "there would", "dont": "do not",
                      "there'd've": "there would have", "they'd": "they would",
                      "they'd've": "they would have","they'll": "they will",
                      "they'll've": "they will have", "they're": "they are","they've": "they have",

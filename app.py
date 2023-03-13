@@ -45,7 +45,7 @@ def classify_sentiment(sentence, aspect_model, polarity_model, tfidf_vectorizer)
     aspect =""
     aspect_pred = aspect_preds[0]
     if np.any(aspect_pred[0]==1): aspect+= " | Data integration"
-    if np.any(aspect_pred[1]==1): aspect+= " | Marketing and Communication"
+    if np.any(aspect_pred[1]==1): aspect+= " | Marketing, Communication & Special offers"
     if np.any(aspect_pred[2]==1): aspect+= " | Technology"
     if np.any(aspect_pred[3]==1): aspect+= " | Payment and Check-out"
     if np.any(aspect_pred[4]==1): aspect+= " | Shopping experience"
@@ -53,7 +53,7 @@ def classify_sentiment(sentence, aspect_model, polarity_model, tfidf_vectorizer)
     if np.any(aspect_pred[6]==1): aspect+= " | Product availability and Store design"
     if np.any(aspect_pred[7]==1): aspect+= " | Price and Value"
     if np.any(aspect_pred[8]==1): aspect+= " | General"
-    if np.any(aspect_pred[9]==1): aspect+= " | Privacy and Security"
+    if np.any(aspect_pred[9]==1): aspect+= " | Privacy and Security issues"
     if(aspect!=""): aspect = aspect[3:]
 
     polarity = str(polarity_preds)
@@ -61,8 +61,8 @@ def classify_sentiment(sentence, aspect_model, polarity_model, tfidf_vectorizer)
     return aspect, polarity
 
 # Create Streamlit app
-st.title("Sentiment Analysis")
-st.write("Enter text to classify sentiment:")
+st.title("Aspect sentiment analysis on IoT store comments")
+st.write("Enter a text describing your opinion toward a retail store where IoT devices are deployed to enhance customer experience. Our model is built to analyse English comments so the input should be English too!")
 
 text = st.text_area("Text", height=200)
 
