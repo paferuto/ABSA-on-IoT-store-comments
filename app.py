@@ -62,8 +62,9 @@ def classify_sentiment(sentence, aspect_model, polarity_model, tfidf_vectorizer)
 
 # Create Streamlit app
 st.title("Aspect-based sentiment analysis on IoT store comments")
-st.write("Ứng dụng này được xây dựng dựa trên mô hình chúng tôi dùng để phân tích dữ liệu trong bài nghiên cứu. Dù chung tôi vẫn giữ nguyên framework như đã được trình bày ở quy trình nghiên cứu, một số thay đổi trong quy trình xử lý đã được thực hiện để việc xử lý phân loại các bình luận đơn lẻ được tiện lợi hơn. dịch đoạn này ra tiếng Anh")
+st.write("This application was built based on the model we used to analyze data in our research. Although we still maintain the same framework as presented in the research process, some changes in the processing procedure have been made.")
 st.write("Please input a short sample comment expressing your viewpoint on the experience at retail stores with IoT applications. Our model is built on English language data, so please enter an English comment to allow the model to classify it accurately.")
+st.write("An example of a comment is: 'The smart cart is incredible'")
 text = st.text_area("Text", height=200)
 
 if st.button("Classify"):
