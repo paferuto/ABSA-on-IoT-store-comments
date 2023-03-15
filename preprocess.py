@@ -9,7 +9,7 @@ from sklearn.linear_model import LogisticRegression
 import re
 from nltk.corpus import stopwords
 import nltk
-import spacy
+#import spacy
 from bs4 import BeautifulSoup
 import string
 pd.options.mode.chained_assignment = None
