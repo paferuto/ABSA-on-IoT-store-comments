@@ -19,7 +19,7 @@ from itertools import groupby
 # from emot.emo_unicode import EMOTICONS_EMO
 import emoji
 # lemmatize words with spacy
-import spacy
+#import spacy
 # nlp = spacy.load('en_core_web_sm-3.2.0')
 
 def preprocess(text):
