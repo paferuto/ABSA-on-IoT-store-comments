@@ -31,9 +31,9 @@ def preprocess(text):
     text = re.sub(r"http[s]?://\S+", "", text)
     text = re.sub(r"\s+", " ", text)
 
-    # Dictionary of English Contractions
-    contractions_dict = { "ain't": "are not","'s":" is","aren't": "are not",
-                     "can't": "cannot","can't've": "cannot have",
+# Dictionary of English Contractions
+contractions_dict = { "ain't": "are not","'s":" is","aren't": "are not",
+                     "can't": "can not","can't've": "can not have",
                      "'cause": "because","could've": "could have","couldn't": "could not",
                      "couldn't've": "could not have", "didn't": "did not","doesn't": "does not",
                      "don't": "do not","hadn't": "had not","hadn't've": "had not have",
@@ -52,7 +52,7 @@ def preprocess(text):
                      "shan't've": "shall not have","she'd": "she would","she'd've": "she would have",
                      "she'll": "she will", "she'll've": "she will have","should've": "should have",
                      "shouldn't": "should not", "shouldn't've": "should not have","so've": "so have",
-                     "that'd": "that would","that'd've": "that would have", "there'd": "there would", "dont": "do not",
+                     "that'd": "that would","that'd've": "that would have", "there'd": "there would",
                      "there'd've": "there would have", "they'd": "they would",
                      "they'd've": "they would have","they'll": "they will",
                      "they'll've": "they will have", "they're": "they are","they've": "they have",
@@ -68,7 +68,10 @@ def preprocess(text):
                      "y'all'd've": "you all would have","y'all're": "you all are",
                      "y'all've": "you all have", "you'd": "you would","you'd've": "you would have",
                      "you'll": "you will","you'll've": "you will have", "you're": "you are",
-                     "you've": "you have"}
+                     "you've": "you have","dont":"do not","wont":"will not","cant":"can not", "aint":"am not", "isnt":"is not", "doesnt":"does not", "didnt":"did not", "shouldnt":"should not", "wouldnt":"would not", "couldnt":"could not", "havent":"have not", "hasnt":"has not", "hadnt":"had not", "im":"i am", 
+                     "ive":"i have", "youve":"you have", "youre":"you are", "theyve":"they have", "theyre":"they are", "weve":"we have", "were":"we are", "whats":"what is", "wheres":"where is",
+                     "whens":"when is", "whys":"why is", "hows":"how is", "theres":"there is", "theres":"there is", "whos":"who is"
+                                }
 
     # Regular expression for finding contractions
     contractions_re=re.compile('(%s)' % '|'.join(contractions_dict.keys()))
