@@ -8,3 +8,4 @@ emoji==2.2.0
 emot==3.0.0
 bs4==0.0.1
 spacy==3.4.4
+en-core-web-sm==3.3.0
