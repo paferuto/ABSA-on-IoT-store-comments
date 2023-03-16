@@ -1,4 +1,3 @@
-import streamlit as st
 import pandas as pd
 import numpy as np
 # import joblib
@@ -19,8 +18,8 @@ from itertools import groupby
 # from emot.emo_unicode import EMOTICONS_EMO
 import emoji
 # lemmatize words with spacy
-#import spacy
-# nlp = spacy.load('en_core_web_sm-3.2.0')
+import spacy
+nlp = spacy.load('en_core_web_sm')
 
 def preprocess(text):
     url_pattern = re.compile(r'https?://\S+|www\.\S+')
@@ -31,8 +30,9 @@ def preprocess(text):
     text = re.sub(r"http[s]?://\S+", "", text)
     text = re.sub(r"\s+", " ", text)
 
-# Dictionary of English Contractions
-contractions_dict = { "ain't": "are not","'s":" is","aren't": "are not",
+    # Dictionary of English Contractions
+    # Dictionary of English Contractions
+    contractions_dict = { "ain't": "are not","'s":" is","aren't": "are not",
                      "can't": "can not","can't've": "can not have",
                      "'cause": "because","could've": "could have","couldn't": "could not",
                      "couldn't've": "could not have", "didn't": "did not","doesn't": "does not",
@@ -75,6 +75,7 @@ contractions_dict = { "ain't": "are not","'s":" is","aren't": "are not",
 
     # Regular expression for finding contractions
     contractions_re=re.compile('(%s)' % '|'.join(contractions_dict.keys()))
+    
 
     def expand_contractions(s, contractions_dict=contractions_dict):
         def replace(match):
@@ -190,10 +191,10 @@ contractions_dict = { "ain't": "are not","'s":" is","aren't": "are not",
 
     text = text.replace(r'\b\w\b', '').replace(r'\s+', ' ')
 
-    # def lemmatize_words(text):
-    #     return " ".join([token.lemma_ for token in nlp(text)])
+    def lemmatize_words(text):
+        return " ".join([token.lemma_ for token in nlp(text)])
     
-    # text = lemmatize_words(text)
+    text = lemmatize_words(text)
 
     text = text.replace('\d+', '')
 
@@ -282,3 +283,4 @@ contractions_dict = { "ain't": "are not","'s":" is","aren't": "are not",
     # text = ' '.join(words)
 
     return text
+

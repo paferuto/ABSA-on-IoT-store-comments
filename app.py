@@ -28,20 +28,43 @@ nltk.download('wordnet')
 import string
 
 
-def classify_sentiment(sentence, aspect_model, polarity_model, tfidf_vectorizer):
-    # Split the input sentence into individual sentences using the full stop character
-    comment = preprocess(sentence)
-    # sentences = sentence.split('.')
+# def classify_sentiment(sentence, aspect_model, polarity_model, tfidf_vectorizer):
+#     # Split the input sentence into individual sentences using the full stop character
+#     comment = preprocess(sentence)
+#     # sentences = sentence.split('.')
     
 
-    # Vectorize the preprocessed sentences
-    X = tfidf_vectorizer.transform([comment])
+#     # Vectorize the preprocessed sentences
+#     X = tfidf_vectorizer.transform([comment])
 
-    # Predict the aspects for each sentence using the aspect model
-    aspect_preds = aspect_model.predict(X)
+#     # Predict the aspects for each sentence using the aspect model
+#     aspect_preds = aspect_model.predict(X)
 
-    # Classify the polarity of each sentence using the polarity model
-    polarity_preds = polarity_model.predict(X)
+#     # Classify the polarity of each sentence using the polarity model
+#     polarity_preds = polarity_model.predict(X)
+#     aspect =""
+#     aspect_pred = aspect_preds[0]
+#     if np.any(aspect_pred[0]==1): aspect+= " | Data integration"
+#     if np.any(aspect_pred[1]==1): aspect+= " | Marketing, Communication & Special offers"
+#     if np.any(aspect_pred[2]==1): aspect+= " | Technology"
+#     if np.any(aspect_pred[3]==1): aspect+= " | Payment and Check-out"
+#     if np.any(aspect_pred[4]==1): aspect+= " | Shopping experience"
+#     if np.any(aspect_pred[5]==1): aspect+= " | Unemployment"
+#     if np.any(aspect_pred[6]==1): aspect+= " | Product availability and Store design"
+#     if np.any(aspect_pred[7]==1): aspect+= " | Price and Value"
+#     if np.any(aspect_pred[8]==1): aspect+= " | General"
+#     if np.any(aspect_pred[9]==1): aspect+= " | Privacy and Security issues"
+#     if(aspect!=""): aspect = aspect[3:]
+
+#     polarity = str(polarity_preds)
+#     polarity = preprocess(polarity)
+#     if(polarity=="positi"):polarity="Positive"
+#     elif(polarity=="negati"):polarity="Negative"
+#     elif(polarity=="neutral"): polarity="Neutral"
+#     return aspect, polarity
+
+def predict_aspect(text):
+    aspect_preds = logistic_aspect.predict(text)
     aspect =""
     aspect_pred = aspect_preds[0]
     if np.any(aspect_pred[0]==1): aspect+= " | Data integration"
@@ -55,10 +78,47 @@ def classify_sentiment(sentence, aspect_model, polarity_model, tfidf_vectorizer)
     if np.any(aspect_pred[8]==1): aspect+= " | General"
     if np.any(aspect_pred[9]==1): aspect+= " | Privacy and Security issues"
     if(aspect!=""): aspect = aspect[3:]
+    return aspect
 
+
+def predict_polarity(vec):
+    polarity_preds = logistic_polarity.predict(vec)
     polarity = str(polarity_preds)
     polarity = preprocess(polarity)
-    return aspect, polarity
+    if(polarity=="positi"):polarity="Positive"
+    elif(polarity=="negati"):polarity="Negative"
+    elif(polarity=="neutral"): polarity="Neutral"
+    return polarity
+
+def predict_multi_aspect(text):
+    # Tách câu dài hoặc đoạn nhiều câu bằng các từ như "but", "except", "yet", dấu chấm
+    sentences = re.split(r'[.!?;]|but |except |yet |although |though |however |despite |or |nor', text)
+    
+    aspects = ""
+    polarities = ""
+    # Tiền xử lý và dự đoán các khía cạnh trong từng câu
+    for sentence in sentences:
+        # Tiền xử lý văn bản
+        preprocessed = preprocess(sentence)
+        aspect =""
+        polarity=""
+        if(len(preprocessed)>2):
+            vec = tfidf_vectorizer.transform([preprocessed])
+            aspect = predict_aspect(vec)
+            polarity = predict_polarity(vec)
+        # Dự đoán các khía cạnh trong câu
+        if aspect !="":aspects+= " | "+aspect
+        if polarity !="": polarities+=" | "+polarity
+    if(aspects!=""): aspects = aspects[3:]
+    if(polarities!=""): polarities = polarities[3:]
+        
+
+    
+    # Loại bỏ các câu null
+    
+    return aspects, polarities
+
+
 
 # Create Streamlit app
 st.title("Aspect-based sentiment analysis on IoT store comments")
@@ -68,6 +128,6 @@ st.write("An example of a comment is: 'The smart cart is incredible'")
 text = st.text_area("Text", height=200)
 
 if st.button("Classify"):
-    aspect, polarity = classify_sentiment(text,logistic_aspect,logistic_polarity,tfidf_vectorizer)
+    aspect, polarity = predict_multi_aspect(text)
     st.write("Sentiment: ", polarity)
     st.write("Aspect: ", aspect)
