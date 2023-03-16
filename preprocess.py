@@ -18,8 +18,8 @@ from itertools import groupby
 # from emot.emo_unicode import EMOTICONS_EMO
 import emoji
 # lemmatize words with spacy
-import spacy
-nlp = spacy.load('en_core_web_sm')
+# import spacy
+# nlp = spacy.load('en_core_web_sm')
 
 def preprocess(text):
     url_pattern = re.compile(r'https?://\S+|www\.\S+')
@@ -191,10 +191,10 @@ def preprocess(text):
 
     text = text.replace(r'\b\w\b', '').replace(r'\s+', ' ')
 
-    def lemmatize_words(text):
-        return " ".join([token.lemma_ for token in nlp(text)])
+    # def lemmatize_words(text):
+    #     return " ".join([token.lemma_ for token in nlp(text)])
     
-    text = lemmatize_words(text)
+    # text = lemmatize_words(text)
 
     text = text.replace('\d+', '')
 
