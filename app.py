@@ -96,6 +96,7 @@ def predict_multi_aspect(text):
     
     aspects = ""
     polarities = ""
+    aspectArray=[]
     # Tiền xử lý và dự đoán các khía cạnh trong từng câu
     for sentence in sentences:
         # Tiền xử lý văn bản
@@ -107,7 +108,9 @@ def predict_multi_aspect(text):
             aspect = predict_aspect(vec)
             polarity = predict_polarity(vec)
         # Dự đoán các khía cạnh trong câu
-        if aspect !="":aspects+= " | "+aspect
+        if aspect !="" and aspect not in aspectArray:
+            aspects+= " | "+aspect
+            aspectArray.append(aspect)
         if polarity !="": polarities+=" | "+polarity
     if(aspects!=""): aspects = aspects[3:]
     if(polarities!=""): polarities = polarities[3:]
